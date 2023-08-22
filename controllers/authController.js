@@ -118,5 +118,10 @@ exports.loginController = async (req, res) => {
 };
 
 exports.testController = async (req, res) => {
-  console.log("PROTECTED ROUTE");
+  try {
+    res.send("Protected Routes");
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
 };

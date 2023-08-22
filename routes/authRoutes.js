@@ -7,13 +7,14 @@ const {
 const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
 const router = require("express").Router();
 
-//get all user ||GET
+// get all users || GET
 router.get("/all-users", getAllUsers);
 router.get("/test", testController);
 
-//CREATE USER || POST
+// create user || POST
 router.post("/register", registerController);
 
-//LOGIN ||POST
-router.post("/login", requireSignIn, isAdmin, loginController);
+// login || POST
+router.post("/login", requireSignIn, loginController);
+
 module.exports = router;
