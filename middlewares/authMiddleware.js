@@ -35,7 +35,8 @@ const isAdmin = async (req, res, next) => {
     console.log(error);
     return res.status(401).send({
       success: false,
-      message: "Unauthorized",
+      error,
+      message: "error in amdin middleware not admin ",
     });
   }
 };
@@ -43,4 +44,5 @@ const isAdmin = async (req, res, next) => {
 module.exports = {
   requireSignIn,
   isAdmin,
+  router,
 };

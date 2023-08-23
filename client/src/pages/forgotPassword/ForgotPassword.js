@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import React Bootstrap styles
-import Layout from "../components/layout/Layout";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useAuth } from "../context/auth";
+import Layout from "../../components/layout/Layout";
 const formStyle = {
   background: "linear-gradient(to right, #A06CD5, #6247AA)",
   padding: "20px",
@@ -15,30 +14,27 @@ const formStyle = {
   margin: "auto",
 };
 
-const Login = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [auth, setAuth] = useAuth();
-  const location = useLocation();
+  const [newPassword, setNewPassword] = useState("");
+  const [answer, setAnswer] = useState("");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(email, password);
+    console.log(email, newPassword, answer);
     try {
-      const res = await axios.post(`http://localhost:8080/api/v1/auth/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `http://localhost:8080/api/v1/auth/forgot-password`,
+        {
+          email,
+          newPassword,
+          answer,
+        }
+      );
       if (res && res.data.success) {
-        toast.success("login successfully");
         toast.success(res.data.messsage);
-        setAuth({
-          ...auth,
-          user: res.data.user,
-          token: res.data.token,
-        });
-        localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate(location.state || "/");
+        navigate("/login");
       } else {
         toast.error(res.data.messsage);
       }
@@ -46,15 +42,14 @@ const Login = () => {
       toast.error("login failed");
       console.log(error);
     }
-
-    // Your registration logic here
   };
 
   return (
-    <Layout>
+    <Layout title={"Forgot Password"}>
       <Container>
         <div style={formStyle}>
           <Form onSubmit={handleSubmit}>
+            <h4>Reset Password</h4>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -66,26 +61,35 @@ const Login = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>
+                Enter Security Question Answer Favourite Food
+              </Form.Label>
               <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="answer"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
                 required
-                placeholder="Enter your password"
+                placeholder="Enter your answer"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Login
-            </Button>
+            <Form.Group className="mb-3">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+                placeholder="Enter your New password"
+              />
+            </Form.Group>
             <Button
-              variant="outline-warning"
               onClick={() => {
-                navigate("/forgot-password");
+                navigate("/login");
               }}
-              style={{ marginLeft: "150px", marginRight: "auto" }}
+              variant="primary"
+              type="submit"
             >
-              Forgot Password
+              RESET
             </Button>
           </Form>
         </div>
@@ -94,4 +98,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

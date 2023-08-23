@@ -22,6 +22,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [answer, setAnswer] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ const Register = () => {
     try {
       const res = await axios.post(
         `http://localhost:8080/api/v1/auth/register`,
-        { name, email, password, phone, address }
+        { name, email, password, phone, address, answer }
       );
       if (res.data.success) {
         toast.success("register successfully");
@@ -98,6 +99,16 @@ const Register = () => {
                 placeholder="Enter your address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Answer</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Favourite fooood?(security question)"
+                value={answer}
+                onChange={(e) => setAnswer(e.target.value)}
                 required
               />
             </Form.Group>

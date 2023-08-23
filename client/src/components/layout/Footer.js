@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const gradientColors = ["#A06CD5", "#E2CFEA", "#6247AA"];
+  const gradientColors = ["#A06CD5", "#6247AA"];
   const gradient = `linear-gradient(to right, ${gradientColors.join(", ")})`;
 
   return (
