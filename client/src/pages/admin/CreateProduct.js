@@ -6,10 +6,9 @@ const CreateProduct = () => {
   return (
     <>
       <Layout>
-        <div className="row">
-          <div className="='col-md-3"></div>
+        <div className="m-3 p-3">
+          <h1>Create Products</h1>
         </div>
-        <div className="='col-md-9">Create Products</div>
       </Layout>
     </>
   );

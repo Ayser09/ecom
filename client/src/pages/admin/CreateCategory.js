@@ -5,10 +5,9 @@ const CreateCategory = () => {
   return (
     <>
       <Layout>
-        <div className="row">
-          <div className="='col-md-3"></div>
+        <div className="m-3 p-3">
+          <h1>Create Category</h1>
         </div>
-        <div className="='col-md-9">Create Category</div>
       </Layout>
     </>
   );
