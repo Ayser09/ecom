@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import React Bootstrap styles
 import Layout from "../components/layout/Layout";
-import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const formStyle = {
   background: "linear-gradient(to right, #A06CD5, #6247AA)",

@@ -3,15 +3,14 @@ const categoryModel = require("../models/categoryModel");
 exports.deleteCategoryController = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await categoryModel.findByIdAndDelete(id);
+    await categoryModel.findByIdAndDelete(id);
     return res.status(200).send({
       success: true,
       message: " Category deleted",
-      category,
     });
   } catch (error) {
     console.log(error);
-    return res.status(404).send({
+    return res.status(500).send({
       success: false,
       message: "Error in deleting Category",
       error,
@@ -82,6 +81,16 @@ exports.createCategoryController = async (req, res) => {
     if (!name) {
       return res.status(401).send({ message: "name is reqd" });
     }
+
+    const category = await new categoryModel({
+      name,
+      slug: slugify(name),
+    }).save();
+    res.status(201).send({
+      success: false,
+      message: "New category created",
+      category,
+    });
     const existingCategory = await categoryModel.findOne({ name });
     if (!existingCategory) {
       return res.status(200).send({
@@ -89,16 +98,6 @@ exports.createCategoryController = async (req, res) => {
         message: "Category already exists",
       });
     }
-
-    const category = await new categoryModel({
-      name,
-      slug: slugify(name),
-    }).save();
-    res.status(201).send({
-      success: true,
-      message: "New category created",
-      category,
-    });
   } catch (error) {
     console.log(error);
     return res.status(404).send({

@@ -10,16 +10,11 @@ const { requireSignIn, isAdmin } = require("../middlewares/authMiddleware");
 const router = require("express").Router();
 
 //delete
-router.get(
-  "/delete-category/:id",
-  requireSignIn,
-  isAdmin,
-  deleteCategoryController
-);
+router.get("/delete-category/:id", deleteCategoryController);
+router.get("/single-category/:slug", singleCategoryController);
 
 router.get("/get-category", categoryController);
 //single catgeory controller
-router.get("/single-category/:slug", singleCategoryController);
 //routes
 router.post(
   "/create-category",
