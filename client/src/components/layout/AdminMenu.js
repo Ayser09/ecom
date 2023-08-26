@@ -31,12 +31,12 @@ const AdminMenu = () => {
             </ListGroup.Item>
             <ListGroup.Item
               as={Link}
-              to="/dashboard/admin/orders"
+              to="/dashboard/admin/products"
               style={{ fontSize: "24px" }}
               action
               variant="info"
             >
-              Orders
+              Products
             </ListGroup.Item>
             <ListGroup.Item
               as={Link}
