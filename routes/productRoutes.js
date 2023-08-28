@@ -11,17 +11,13 @@ const formidable = require("express-formidable");
 const router = require("express").Router();
 
 //delete
-router.get(
-  "/delete-product/:id",
-
-  deleteProductController
-);
+router.get("/delete-product/pid", deleteProductController);
 //get photo
 router.get("/product-photo/:pid", productPhotoController);
 
 router.get("/get-product", getProductController);
 //single catgeory controller
-router.get("/get-single/:slug", singleProductController);
+router.get("/get-product/:slug", singleProductController);
 //routes
 router.post(
   "/create-product",
@@ -31,5 +27,11 @@ router.post(
   createProductController
 );
 //update category
-router.put("/update-product/:pid", formidable(), updateProductController);
+router.put(
+  "/update-product/:pid",
+  requireSignIn,
+  isAdmin,
+  formidable(),
+  updateProductController
+);
 module.exports = router;

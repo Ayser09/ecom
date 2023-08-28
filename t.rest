@@ -18,4 +18,6 @@ GET http://localhost:8080/api/v1/category/get-category
 
 ####
 GET http://localhost:8080/api/v1/category/single-category/name1
+####
+GET http://localhost:8080/api/v1/product/get-product
 

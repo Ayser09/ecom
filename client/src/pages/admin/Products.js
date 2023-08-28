@@ -1,11 +1,9 @@
-import { Card, Text, Checkbox } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Image } from "antd";
 import { toast } from "react-hot-toast";
 import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
-//not showing on page
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const getAllProducts = async () => {
@@ -26,8 +24,8 @@ const Products = () => {
   return (
     <>
       <Layout>
-        <div className="col-md-9 ">
-          <h1 className="text-center">All Products List</h1>
+        <div className="col-md-9">
+          <h1>ALL PRODUCTS LISTS</h1>
           <div className="d-flex">
             {products?.map((p) => (
               <Link
@@ -37,7 +35,7 @@ const Products = () => {
               >
                 <div className="card m-2" style={{ width: "18rem" }}>
                   <img
-                    src={`/api/v1/product/product-photo/${p._id}`}
+                    src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
                     alt={p.name}
                   />

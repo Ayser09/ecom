@@ -30,7 +30,7 @@ const Header = () => {
         style={{ background: headerGradient, color: "white" }}
       >
         <Container>
-          <Navbar.Brand href="/">SIHANAA👜 </Navbar.Brand>
+          <Navbar.Brand href="/">ECOMMERCE👜 </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

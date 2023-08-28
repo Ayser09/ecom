@@ -54,7 +54,7 @@ const CreateProduct = () => {
       productData.append("photo", photo);
       productData.append("category", category);
       productData.append("shipping", shipping);
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `http://localhost:8080/api/v1/product/create-product`,
         // name,
         // description,
