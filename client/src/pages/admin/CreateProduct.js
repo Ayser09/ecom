@@ -157,13 +157,21 @@ const CreateProduct = () => {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Shipping</FormLabel>
-                  <Checkbox
-                    isChecked={shipping}
-                    onChange={() => setShipping(!shipping)}
-                  >
-                    Ship this product
-                  </Checkbox>
+                  <div className="mb-3">
+                    <Select
+                      bordered={false}
+                      placeholder="Select Shipping "
+                      size="large"
+                      showSearch
+                      className="form-select mb-3"
+                      onChange={(value) => {
+                        setShipping(value);
+                      }}
+                    >
+                      <Option value="0">No</Option>
+                      <Option value="1">Yes</Option>
+                    </Select>
+                  </div>
                 </FormControl>
                 <Button type="submit" colorScheme="teal" onClick={handleCreate}>
                   Create Product

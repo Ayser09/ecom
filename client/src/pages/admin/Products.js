@@ -5,13 +5,13 @@ import Layout from "../../components/layout/Layout";
 import { Link } from "react-router-dom";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
   const getAllProducts = async () => {
     try {
       const { data } = await axios.get(
         `http://localhost:8080/api/v1/product/get-product`
       );
-      setProducts(data.products);
+      setProduct(data.products);
     } catch (error) {
       console.log(error);
       toast.error("something twent wrong");
@@ -24,10 +24,10 @@ const Products = () => {
   return (
     <>
       <Layout>
-        <div className="col-md-9">
+        <div className="col-md-9 p-3">
           <h1>ALL PRODUCTS LISTS</h1>
           <div className="d-flex">
-            {products?.map((p) => (
+            {product?.map((p) => (
               <Link
                 key={p._id}
                 to={`/dashboard/admin/product/${p.slug}`}
