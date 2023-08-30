@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useAuth } from "../context/auth";
+import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const [auth, setAuth] = useAuth();
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const getTotal = async () => {
     try {
       const { data } = await axios.get(
@@ -158,7 +159,12 @@ const HomePage = () => {
                         {p?.description.substring(0, 30)}
                       </p>
                       <p className="card-text">${p?.price}</p>
-                      <Button variant="info">More Details</Button>{" "}
+                      <Button
+                        variant="info"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </Button>{" "}
                       <Button variant="outline-info">Add to Cart</Button>{" "}
                     </div>
                   </div>

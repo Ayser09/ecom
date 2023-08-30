@@ -4,12 +4,15 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SearchInput from "../form/SearchInput";
+import useCategory from "../../hooks/useCategory";
 
 const Header = () => {
   const headerGradient = "linear-gradient(to right, #A06CD5, #6247AA)";
   const [auth, setAuth] = useAuth();
   const navigate = useNavigate();
+  const categories = useCategory();
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -34,50 +37,13 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <div className="dropdown">
-                <button
-                  className="btn dropdown-toggle"
-                  type="button"
-                  id="categoriesDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style={{
-                    color: "white",
-                    backgroundColor: "transparent",
-                    border: "none",
-                  }}
-                >
-                  Categories
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="categoriesDropdown"
-                >
-                  <li>
-                    <Nav.Link className="dropdown-item" href="#">
-                      Category One
-                    </Nav.Link>
-                  </li>
-                  <li>
-                    <Nav.Link className="dropdown-item" href="#">
-                      Category Two
-                    </Nav.Link>
-                  </li>
-                  <li>
-                    <Nav.Link className="dropdown-item" href="#">
-                      Category Three
-                    </Nav.Link>
-                  </li>
-                  <li>
-                    <Nav.Link className="dropdown-item" href="#">
-                      Category Four
-                    </Nav.Link>
-                  </li>
-                </ul>
-              </div>
               <Nav.Link style={{ color: "white" }} href="/cart">
                 Cart 🛒
               </Nav.Link>
+              <SearchInput />
+              {/* <Nav.Link style={{ color: "white" }} href="/search">
+                Search🧙
+              </Nav.Link> */}
             </Nav>
             <Nav>
               {!auth.user ? (
@@ -107,6 +73,34 @@ const Header = () => {
                   </Nav.Link>
                 </>
               )}
+              <div className="dropdown">
+                <li className="nav-item dropdown">
+                  <Link
+                    className="nav-link dropdown-toggle"
+                    to={"/categories"}
+                    data-bs-toggle="dropdown"
+                  >
+                    Categories
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <li key="all">
+                      <Link className="dropdown-item" to={"/categories"}>
+                        All Categories
+                      </Link>
+                    </li>
+                    {categories?.map((c) => (
+                      <li key={c._id}>
+                        <Link
+                          className="dropdown-item"
+                          to={`/category/${c.slug}`}
+                        >
+                          {c.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
