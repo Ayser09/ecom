@@ -7,10 +7,13 @@ import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "../form/SearchInput";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
+import { Badge } from "antd";
 
 const Header = () => {
   const headerGradient = "linear-gradient(to right, #A06CD5, #6247AA)";
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const navigate = useNavigate();
   const categories = useCategory();
   const handleLogout = () => {
@@ -37,9 +40,11 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link style={{ color: "white" }} href="/cart">
-                Cart 🛒
-              </Nav.Link>
+              <Badge count={cart?.length} showZero>
+                <Nav.Link style={{ color: "white" }} href="/cart">
+                  Cart 🛒
+                </Nav.Link>
+              </Badge>
               <SearchInput />
               {/* <Nav.Link style={{ color: "white" }} href="/search">
                 Search🧙

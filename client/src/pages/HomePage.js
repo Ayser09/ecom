@@ -8,8 +8,9 @@ import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useAuth } from "../context/auth";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
 const HomePage = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -18,21 +19,13 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const getTotal = async () => {
-    try {
-      const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/product-count`
-      );
-      setTotal(data?.total);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [cart, setCart] = useCart();
 
+  //get all cat
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/category/get-category`
+        "http://localhost:8080/api/v1/category/get-category"
       );
       if (data?.success) {
         setCategories(data?.category);
@@ -46,50 +39,38 @@ const HomePage = () => {
     getAllCategory();
     getTotal();
   }, []);
-  //have to add for get by categroyr function
+  //get products
   const getAllProducts = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/get-product`
+        `http://localhost:8080/api/v1/product/product-list/${page}`
       );
+      setLoading(false);
       setProducts(data.products);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
-  const handleFilter = (value, id) => {
-    let all = [...checked];
-    if (value) {
-      all.push(id);
-    } else {
-      all = all.filter((c) => c !== id);
-    }
-    setChecked(all);
-  };
-
-  useEffect(() => {
-    if (!checked.length || !radio.length) getAllProducts();
-  }, [checked.length, radio.length]);
-  useEffect(() => {
-    if (checked.length || radio.length) filterProduct();
-  }, [checked, radio]);
-
-  const filterProduct = async () => {
+  //getTOtal COunt
+  const getTotal = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/v1/product/product-filters`,
-        { checked, radio }
+        "http://localhost:8080/api/v1/product/product-count"
       );
-      setProducts(data?.products);
+      setTotal(data?.total);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     if (page === 1) return;
     loadMore();
   }, [page]);
+  //load more
   const loadMore = async () => {
     try {
       setLoading(true);
@@ -103,11 +84,45 @@ const HomePage = () => {
       setLoading(false);
     }
   };
+
+  // filter by cat
+  const handleFilter = (value, id) => {
+    let all = [...checked];
+    if (value) {
+      all.push(id);
+    } else {
+      all = all.filter((c) => c !== id);
+    }
+    setChecked(all);
+  };
+  useEffect(() => {
+    if (!checked.length || !radio.length) getAllProducts();
+  }, [checked.length, radio.length]);
+
+  useEffect(() => {
+    if (checked.length || radio.length) filterProduct();
+  }, [checked, radio]);
+
+  //get filterd product
+  const filterProduct = async () => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/api/v1/product/product-filters",
+        {
+          checked,
+          radio,
+        }
+      );
+      setProducts(data?.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <Layout>
         <h1>Homepage</h1>
-        <div className="row mt-3 p-3">
+        <div className="row mt-2 p-3">
           <div className="col-md-3">
             <h3 className="text-center mt-4">filter by price</h3>
             <div className="d-flex flex-column">
@@ -165,7 +180,12 @@ const HomePage = () => {
                       >
                         More Details
                       </Button>{" "}
-                      <Button variant="outline-info">Add to Cart</Button>{" "}
+                      <Button
+                        onClick={() => setCart([...cart, p])}
+                        variant="outline-info"
+                      >
+                        Add to Cart
+                      </Button>{" "}
                     </div>
                   </div>
                 ))}

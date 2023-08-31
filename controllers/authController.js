@@ -3,6 +3,60 @@ const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 
+//orders
+exports.getOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user.id })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({
+      message: "couldnt update profile",
+      success: false,
+      error,
+    });
+  }
+};
+//update profile
+
+exports.updateProfileController = async (req, res) => {
+  try {
+    const { name, email, password, phone, address } = req.body;
+    const user = await userModel.findByIdAndUpdate(req.user._id);
+    //password
+    if (password && password.length < 4) {
+      return res.json({ error: "password is required and 4 character min" });
+    }
+    const hashedPassword = password ? await hashPassword(password) : undefined;
+    const updatedUser = await userModel.findByIdAndUpdate(
+      req.user._id,
+      {
+        name: name || user.name,
+        email: email || user.email,
+        password: hashedPassword || user.password,
+        phone: phone || user.phone,
+        address: address || user.address,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      message: "update profile success",
+      success: true,
+      updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({
+      message: "couldnt update profile",
+      success: false,
+      error,
+    });
+  }
+};
+
 //create user register user
 exports.registerController = async (req, res) => {
   try {

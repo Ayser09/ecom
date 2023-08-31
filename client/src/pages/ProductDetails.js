@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../components/layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import { Button } from "react-bootstrap";
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [cart, setCart] = useCart();
 
   //initalp details
   useEffect(() => {
@@ -82,7 +85,12 @@ const ProductDetails = () => {
                 >
                   More Details
                 </button>
-                <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                <Button
+                  onClick={() => setCart([...cart, p])}
+                  variant="outline-info"
+                >
+                  Add to Cart
+                </Button>{" "}
               </div>
             </div>
           ))}
