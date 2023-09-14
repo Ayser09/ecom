@@ -26,7 +26,7 @@ router.get("/product-count", productCountController);
 router.post("/product-filters", productFiltersController);
 
 //delete
-router.get("/delete-product/pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 //get photo
 router.get("/product-photo/:pid", productPhotoController);
 

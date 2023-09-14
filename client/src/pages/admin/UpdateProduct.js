@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { Select } from "antd";
+import { Select, message } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 const { Option } = Select;
@@ -90,16 +90,14 @@ const UpdateProduct = () => {
   //delete a product
   const handleDelete = async () => {
     try {
-      let answer = window.prompt("Are You Sure want to delete this product ? ");
-      if (!answer) return;
       const { data } = await axios.delete(
         `http://localhost:8080/api/v1/product/delete-product/${id}`
       );
-      toast.success("Product DEleted Succfully");
+      message.success("Product DEleted Succfully");
       navigate("/dashboard/admin/products");
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      message.error("Something went wrong");
     }
   };
   return (

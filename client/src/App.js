@@ -24,6 +24,7 @@ import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import CartPage from "./pages/CartPage";
 import Homepagee from "./pages/Homepagee";
+import SideNavBar from "./pages/Sidebar";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="admin/create-product" element={<CreateProduct />} />
           <Route path="admin/product/:slug" element={<UpdateProducts />} />
           <Route path="admin/products" element={<Products />} />
+          <Route path="admin/homepage" element={<Homepagee />} />
           <Route
             path="admin/update-product/:slug"
             element={<UpdateProducts />}
@@ -57,7 +59,7 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/homepage" element={<Homepagee />} />
+        <Route path="/side" element={<SideNavBar />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

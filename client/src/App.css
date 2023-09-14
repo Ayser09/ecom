@@ -15,3 +15,41 @@
 .body {
   grid-area: body;
 }
+/* Homepage.css */
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adjust the gap between products as needed */
+}
+
+.product-card {
+  flex: 1;
+  min-width: calc(50% - 20px); /* 2 cards in a row with a gap */
+  max-width: calc(50% - 20px); /* 2 cards in a row with a gap */
+  margin-bottom: 20px; /* Adjust the bottom margin as needed */
+  /* Add more styling as needed for the card appearance */
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Add any other styling for your products as needed */
+/* Homepage.css */
+
+/* Define the animation keyframes */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Apply the animation to the homepage */
+.slide-in {
+  animation: slideInFromLeft 1s ease-in-out;
+}

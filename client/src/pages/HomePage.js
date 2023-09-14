@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
-
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
-import { useAuth } from "../context/auth";
+
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 const HomePage = () => {
-  const [auth] = useAuth();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -20,7 +17,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
-
+  const [isAnimated, setIsAnimated] = useState(false);
   //get all cat
   const getAllCategory = async () => {
     try {
@@ -118,22 +115,26 @@ const HomePage = () => {
       console.log(error);
     }
   };
+  useEffect(() => {
+    setIsAnimated(true); // Trigger the animation when the component has mounted
+  }, []);
   return (
     <div>
       <Layout>
-        <h1>Homepage</h1>
+        <h1 className={`text-center ${isAnimated ? "slide-in" : ""}`}>
+          Welcome, Checkout Our Latest Products
+        </h1>
         <div className="row mt-2 p-3">
-          <div className="col-md-3">
-            <h3 className="text-center mt-4">filter by price</h3>
+          <div className="col-md-2">
+            <button
+              className="btn btn-danger"
+              onClick={() => window.location.reload()}
+            >
+              Reset filter
+            </button>
+            <h6 className=" mt-4">Filter by Price</h6>
             <div className="d-flex flex-column">
-              <div className="d-flex flex-column">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => window.location.reload()}
-                >
-                  Reset filter
-                </button>
-              </div>
+              <div className="d-flex flex-column"></div>
               <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                 {Prices?.map((p) => (
                   <div key={p._id}>
@@ -142,7 +143,7 @@ const HomePage = () => {
                 ))}
               </Radio.Group>
             </div>
-            <h3 className="text-center">filter by category</h3>
+            <h6 className="">filter by category</h6>
             <div className="d-flex flex-column">
               {categories?.map((c) => (
                 <Checkbox
@@ -156,9 +157,7 @@ const HomePage = () => {
           </div>
 
           <div className="col-md-9">
-            {JSON.stringify(checked, null, 4)}
-            {JSON.stringify(radio, null, 4)}
-            <h1 className="text-center"> all Products</h1>
+            <h1 className="text-center"> Latest Collections </h1>
             <div className="d-flex flex-wrap ">
               {products &&
                 products.map((p) => (
@@ -198,14 +197,16 @@ const HomePage = () => {
               variant="info"
               onClick={(e) => {
                 e.preventDefault();
-                setPage(page + 1);
+                setPage(page + 2);
               }}
             >
               {loading ? "Loading .." : "Loadmore"}
             </Button>
           )}
         </div>
-        <pre>{JSON.stringify(auth, null, 4)}</pre>
+        {/* <pre>{JSON.stringify(auth, null, 4)}</pre>
+          {JSON.stringify(checked, null, 4)}
+            {JSON.stringify(radio, null, 4)} */}
       </Layout>
     </div>
   );

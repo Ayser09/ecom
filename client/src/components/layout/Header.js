@@ -78,34 +78,6 @@ const Header = () => {
                   </Nav.Link>
                 </>
               )}
-              <div className="dropdown">
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    to={"/categories"}
-                    data-bs-toggle="dropdown"
-                  >
-                    Categories
-                  </Link>
-                  <ul className="dropdown-menu">
-                    <li key="all">
-                      <Link className="dropdown-item" to={"/categories"}>
-                        All Categories
-                      </Link>
-                    </li>
-                    {categories?.map((c) => (
-                      <li key={c._id}>
-                        <Link
-                          className="dropdown-item"
-                          to={`/category/${c.slug}`}
-                        >
-                          {c.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
