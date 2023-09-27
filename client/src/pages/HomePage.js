@@ -18,6 +18,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
   const [isAnimated, setIsAnimated] = useState(false);
+  const headerGradient = "linear-gradient(to right, #ee2a7b,#ff7db8)";
   //get all cat
   const getAllCategory = async () => {
     try {
@@ -161,7 +162,14 @@ const HomePage = () => {
             <div className="d-flex flex-wrap ">
               {products &&
                 products.map((p) => (
-                  <div className="card m-2" style={{ width: "18rem" }}>
+                  <div
+                    className="card m-2"
+                    style={{
+                      background: headerGradient,
+                      color: "white",
+                      width: "18rem",
+                    }}
+                  >
                     <img
                       src={`http://localhost:8080/api/v1/product/product-photo/${p._id}`}
                       className="card-img-top"

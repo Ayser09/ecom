@@ -11,7 +11,7 @@ import { useCart } from "../../context/cart";
 import { Badge } from "antd";
 
 const Header = () => {
-  const headerGradient = "linear-gradient(to right, #A06CD5, #6247AA)";
+  const headerGradient = "linear-gradient(to right, #ff00d4,#00ddff)";
   const [auth, setAuth] = useAuth();
   const [cart] = useCart();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const Header = () => {
         style={{ background: headerGradient, color: "white" }}
       >
         <Container>
-          <Navbar.Brand href="/">ECOMMERCE👜 </Navbar.Brand>
+          <Navbar.Brand href="/">S I H A N A👜 </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">

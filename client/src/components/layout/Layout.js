@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 const Layout = ({ children }) => {
-  const gradientColors = ["#E2CFEA", "#6247AA"];
+  const gradientColors = ["#fe8dc6,#fed1c7"];
   const gradient = `linear-gradient(to right, ${gradientColors.join(", ")})`;
 
   return (

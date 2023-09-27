@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const gradientColors = ["#A06CD5", "#6247AA"];
+  const gradientColors = ["#ff00d4", "#00ddff"];
   const gradient = `linear-gradient(to right, ${gradientColors.join(", ")})`;
 
   return (
@@ -15,7 +15,7 @@ const Footer = () => {
         color: "white", // Set text color for better visibility
       }}
     >
-      <h1 className="text-center">All Right Reserved &copy; ECOMM</h1>
+      <h1 className="text-center">All Right Reserved &copy; S I H A N A</h1>
       <p className="text-center mt-3">
         <Link to="/about" style={{ color: "white" }}>
           About
